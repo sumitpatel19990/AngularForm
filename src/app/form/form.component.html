@@ -1,0 +1,67 @@
+<div class="container">
+    <h1>Data Driven</h1>
+    <form [formGroup]="myForm" (ngSubmit) = "onSubmit()"> 
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text"
+                       class="form-control"
+                       id="username"  
+                       formControlName="username" placeholder="Enter Name Here">
+            </div>
+ 
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text"
+                       class="form-control"
+                       id="city"  
+                       formControlName="city" placeholder="Enter City Here">
+            </div>
+
+            <div class="form-group">
+                <label for="email">E-Mail</label>
+                <input type="text"
+                       class="form-control"
+                       id="email"
+                       formControlName="email" placeholder="Enter Email Here">
+                       <div *ngIf="!myForm.get(['email']).valid">Invalid Email</div>
+            </div>
+           
+      
+            <div class="form-group">
+                <select class="form-control" id="country" formControlName="country">
+                    <option value="" disabled selected>Select your Country</option>
+                    <option *ngFor="let country of countries" value= {{country.name}}>
+                        {{country.name}}
+                    </option>
+                </select>
+            </div> 
+
+        <button type="submit" class="btn btn-primary" [disabled]="!myForm.valid">Submit</button>
+
+    </form>
+    <h1>User Data Display</h1>
+    <table border = "1" *ngIf = "userdata.length" class="table table-condensed table-bordered">
+        <thead>
+        <tr>
+            <th width="100">Id</th>
+            <th width="100">First Name</th>
+            <th width="100">City</th>
+            <th width="100">E-Mail</th>
+            <th width="100">Country</th>
+            <th width="100">Edit</th>
+            <th width="100">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor='let user of userdata' let i = "index">
+            <td>{{user.id}}</td>
+            <td>{{user.username}}</td>
+            <td>{{user.city}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.country}}</td>
+            <td><button type="submit" class="btn btn-primary" (click)="edit(i)">Edit</button></td>
+            <td><button type="submit" class="btn btn-primary" (click)="delete(i)">Delete</button></td>
+        </tr>
+        </tbody>
+</table>    
+
